@@ -22,7 +22,7 @@ services:
        - /var/log/onlyoffice
        - /var/lib/onlyoffice/documentserver/App_Data/cache/files
        - /var/www/onlyoffice/documentserver-example/public/files
-       - ./fonts:/usr/share/fonts
+       - ./doc-fonts:/usr/share/fonts
        
   onlyoffice-documentserver:
     image: onlyoffice/documentserver:latest
