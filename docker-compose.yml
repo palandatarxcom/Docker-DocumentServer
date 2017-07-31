@@ -18,6 +18,7 @@ services:
       - onlyoffice
     volumes:
        - /var/www/onlyoffice/Data
+       - /etc/localtime:/etc/localtime:ro 
        - /var/log/onlyoffice
        - /var/lib/onlyoffice/documentserver/App_Data/cache/files
        - /var/www/onlyoffice/documentserver-example/public/files
@@ -30,6 +31,7 @@ services:
       - onlyoffice-postgresql
       - onlyoffice-redis
       - onlyoffice-rabbitmq
+      - test-nginx
     environment:
       - ONLYOFFICE_DATA_CONTAINER_HOST=onlyoffice-documentserver-data
       - BALANCE=uri depth 3
@@ -61,6 +63,7 @@ services:
      - onlyoffice-documentserver
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
+      - /etc/localtime:/etc/localtime:ro
       # Uncomment the string below to map a ssl certificate from host
       # to the proxy container
       #- /app/onlyoffice/DocumentServer/data/certs/onlyoffice.pem:/certs/cert1.pem
@@ -103,6 +106,14 @@ services:
       - '5432'
     volumes:
       - postgresql_data:/var/lib/postgresql
+  
+  test-nginx:
+    image: nginx
+    networks:
+      - onlyoffice
+    ports:
+      - '80:80'
+    restart: always 
 
 networks:
   onlyoffice:
