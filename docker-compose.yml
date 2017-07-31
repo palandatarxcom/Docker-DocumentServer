@@ -31,7 +31,6 @@ services:
       - onlyoffice-postgresql
       - onlyoffice-redis
       - onlyoffice-rabbitmq
-      - test-nginx
     environment:
       - ONLYOFFICE_DATA_CONTAINER_HOST=onlyoffice-documentserver-data
       - BALANCE=uri depth 3
@@ -107,14 +106,6 @@ services:
     volumes:
       - postgresql_data:/var/lib/postgresql
   
-  test-nginx:
-    image: nginx
-    networks:
-      - onlyoffice
-    ports:
-      - '80:80'
-    restart: always 
-
 networks:
   onlyoffice:
     driver: 'bridge'
